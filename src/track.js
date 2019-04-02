@@ -1,5 +1,3 @@
-/* eslint-disable import/prefer-default-export */
-
 const initTrack = (performance) => {
   let trackData
 
