@@ -26,10 +26,10 @@ describe('measure-it node', () => {
     }
 
     expect(Object.keys(resultMap.foo)).to.have.members([
-      'key', 'count', 'time', 'avg', 'min', 'max',
+      'key', 'count', 'time', 'avg', 'min', 'max', 'p90', 'p95', 'p99',
     ])
     expect(Object.keys(resultMap.bar)).to.have.members([
-      'key', 'count', 'time', 'avg', 'min', 'max',
+      'key', 'count', 'time', 'avg', 'min', 'max', 'p90', 'p95', 'p99',
     ])
 
 
