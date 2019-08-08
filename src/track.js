@@ -5,14 +5,30 @@ const initTrack = (performance) => {
     trackData = {}
   }
 
+  function percentile(factor, list) {
+    const sortedList = [...list].sort()
+    const idx = Math.round(factor * (sortedList.length - 1))
+    return sortedList[idx]
+  }
+
   function sortedTrackData() {
     return Object.keys(trackData)
       .map((key) => {
-        const trackDataOfKey = trackData[key]
+        const {
+          count, time, times, ...rest
+        } = trackData[key]
+        const p90 = percentile(0.9, times)
+        const p95 = percentile(0.95, times)
+        const p99 = percentile(0.99, times)
         return {
           key,
-          avg: trackDataOfKey.count ? trackDataOfKey.time / trackDataOfKey.count : undefined,
-          ...trackDataOfKey,
+          avg: count ? time / count : undefined,
+          p90,
+          p95,
+          p99,
+          count,
+          time,
+          ...rest,
         }
       })
       .sort((a, b) =>
@@ -23,7 +39,7 @@ const initTrack = (performance) => {
 
   function start(tag) {
     if (trackData[tag] == null) {
-      trackData[tag] = { time: 0, count: 0 }
+      trackData[tag] = { time: 0, count: 0, times: [] }
     }
     trackSingleCall[tag] = performance.now()
     return trackSingleCall[tag]
@@ -34,6 +50,7 @@ const initTrack = (performance) => {
     const time = performance.now() - st
     trackData[tag].time += time
     trackData[tag].count += 1
+    trackData[tag].times.push(time)
     if (!trackData[tag].max || trackData[tag].max < time) {
       trackData[tag].max = time
     }
