@@ -39,36 +39,33 @@ const initTrack = (performance) => {
         compareNumbers(b.time, a.time))
   }
 
-  const trackSingleCall = {}
+  function stop(tag, startTime) {
+    return function () {
+      const time = performance.now() - startTime
+      trackData[tag].time += time
+      trackData[tag].count += 1
+      trackData[tag].times.push(time)
+      if (!trackData[tag].max || trackData[tag].max < time) {
+        trackData[tag].max = time
+      }
+      if (!trackData[tag].min || trackData[tag].min > time) {
+        trackData[tag].min = time
+      }
+    }
+  }
 
   function start(tag) {
     if (trackData[tag] == null) {
       trackData[tag] = { time: 0, count: 0, times: [] }
     }
-    trackSingleCall[tag] = performance.now()
-    return trackSingleCall[tag]
+    return stop(tag, performance.now())
   }
-
-  function stop(tag, startTime) {
-    const st = startTime == null ? trackSingleCall[tag] : startTime
-    const time = performance.now() - st
-    trackData[tag].time += time
-    trackData[tag].count += 1
-    trackData[tag].times.push(time)
-    if (!trackData[tag].max || trackData[tag].max < time) {
-      trackData[tag].max = time
-    }
-    if (!trackData[tag].min || trackData[tag].min > time) {
-      trackData[tag].min = time
-    }
-  }
-
 
   function track(name, fn) {
     const _fn = (...args) => {
-      start(name)
+      const _stop = start(name)
       const result = fn(...args)
-      stop(name)
+      _stop()
       return result
     }
     return _fn
@@ -80,7 +77,6 @@ const initTrack = (performance) => {
     resetTrack,
     sortedTrackData,
     start,
-    stop,
     track,
   }
 }

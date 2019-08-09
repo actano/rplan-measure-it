@@ -1,7 +1,7 @@
 import { expect } from 'chai'
 
 import {
-  resetTrack, sortedTrackData, start, stop, track,
+  resetTrack, sortedTrackData, start, track,
 } from '../../src/node'
 
 describe('measure-it node', () => {
@@ -10,12 +10,12 @@ describe('measure-it node', () => {
   })
 
   it('should measure runtime with start/ stop', () => {
-    start('bar')
-    start('foo')
-    stop('foo')
-    start('foo')
-    stop('foo')
-    stop('bar')
+    const stopBar = start('bar')
+    const stopFoo = start('foo')
+    stopFoo()
+    const stopFoor2 = start('foo')
+    stopFoor2()
+    stopBar()
 
     const result = sortedTrackData()
     expect(result).to.have.length(2)
@@ -43,16 +43,6 @@ describe('measure-it node', () => {
     expect(resultMap.foo.time).to.be.a('number')
   })
 
-  it('should measure runtime with with given timestamp at stop', () => {
-    const startTime = start('bar')
-    stop('bar', 0)
-
-    const result = sortedTrackData()
-
-    expect(startTime).to.be.a('number')
-    expect(result[0].time).to.be.least(startTime)
-  })
-
   it('should measure runtime of tracked function', () => {
     function functionToMeasure() {
       // ..
@@ -69,8 +59,8 @@ describe('measure-it node', () => {
 
   describe('resetTrack', () => {
     it('should reset track data', () => {
-      start('foo')
-      stop('foo')
+      const stopFoo = start('foo')
+      stopFoo()
 
       resetTrack()
 
