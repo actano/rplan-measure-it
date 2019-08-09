@@ -1,3 +1,7 @@
+function compareNumbers(a, b) {
+  return a - b
+}
+
 const initTrack = (performance) => {
   let trackData
 
@@ -6,7 +10,7 @@ const initTrack = (performance) => {
   }
 
   function percentile(factor, list) {
-    const sortedList = [...list].sort()
+    const sortedList = [...list].sort(compareNumbers)
     const idx = Math.round(factor * (sortedList.length - 1))
     return sortedList[idx]
   }
@@ -32,7 +36,7 @@ const initTrack = (performance) => {
         }
       })
       .sort((a, b) =>
-        b.time - a.time)
+        compareNumbers(b.time, a.time))
   }
 
   const trackSingleCall = {}
