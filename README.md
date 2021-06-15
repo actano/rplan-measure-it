@@ -63,7 +63,7 @@ stop()
 
 track('bar', doSomeThing)
 
-// press key 'l' to log performance results to the browser console
-// press key 'r' to reset results
+// press keys ctrl + 'l' to log performance results to the browser console
+// press keys ctrl + 'r' to reset results
 
 ```   
