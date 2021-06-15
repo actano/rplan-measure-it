@@ -49,15 +49,15 @@ stop('foo', startTime)
 ## Usage browser
 
 ```javascript
-import { start, stop, track } from '@rplan/measure-it/lib/browser'
+import { start, track } from '@rplan/measure-it/lib/browser'
 
 function doSomeThing() {
     // ...    
 }
 
-start('foo')
+const stop = start('foo')
 doSomeThing()
-stop('foo')
+stop()
 
 // alternative
 
