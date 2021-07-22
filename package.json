@@ -6,7 +6,7 @@
   "main": "lib/node/index.js",
   "module": "src/node/index.js",
   "engines": {
-    "node": ">=8"
+    "node": ">=10"
   },
   "repository": {
     "type": "git",
