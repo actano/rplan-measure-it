@@ -1,6 +1,6 @@
 {
   "name": "@rplan/measure-it",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "author": "Actano GmbH (https://rplan.com/)",
   "license": "MIT",
   "main": "lib/node/index.js",
