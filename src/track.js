@@ -1,3 +1,7 @@
+import createLogger from '@rplan/logger'
+
+const logger = createLogger('measure-it')
+
 let productionModeChecked = false
 
 function checkProductionMode(allowProductionMode) {
@@ -8,7 +12,8 @@ function checkProductionMode(allowProductionMode) {
   productionModeChecked = true
 
   if (process.env.NODE_ENV === 'production') {
-    throw new Error('@rplan/measure-it should not be used in production. Either disable it or explicitly allow production mode.')
+    logger.error('@rplan/measure-it should not be used in production. Either disable it or explicitly allow production mode.')
+    process.exit(1)
   }
 }
 
