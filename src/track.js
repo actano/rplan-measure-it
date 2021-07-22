@@ -1,3 +1,17 @@
+let productionModeChecked = false
+
+function checkProductionMode(allowProductionMode) {
+  if (allowProductionMode || productionModeChecked) {
+    return
+  }
+
+  productionModeChecked = true
+
+  if (process.env.NODE_ENV === 'production') {
+    throw new Error('@rplan/measure-it should not be used in production. Either disable it or explicitly allow production mode.')
+  }
+}
+
 function compareNumbers(a, b) {
   return a - b
 }
@@ -54,7 +68,9 @@ const initTrack = (performance) => {
     }
   }
 
-  function start(tag) {
+  function start(tag, allowProductionMode = false) {
+    checkProductionMode(allowProductionMode)
+
     if (trackData[tag] == null) {
       trackData[tag] = { time: 0, count: 0, times: [] }
     }
