@@ -5,9 +5,7 @@
   "license": "MIT",
   "main": "lib/node/index.js",
   "module": "src/node/index.js",
-  "engines": {
-    "node": ">=10"
-  },
+  "engines": {  "node": ">=16",  "npm": ">=8.3"},
   "repository": {
     "type": "git",
     "url": "git://github.com/actano/rplan-measure-it.git"
@@ -29,7 +27,7 @@
     "access": "public"
   },
   "devDependencies": {
-    "@rplan/config": "^2.0.1",
+    "@rplan/config": "^2.2.0",
     "babel-cli": "^6.26.0",
     "babel-eslint": "^10.0.1",
     "babel-plugin-add-module-exports": "^1.0.0",
@@ -37,15 +35,15 @@
     "babel-preset-env": "^1.7.0",
     "babel-register": "^6.26.0",
     "chai": "^4.2.0",
-    "eslint": "^5.16.0",
-    "eslint-config-actano-base": "^4.0.0",
-    "eslint-plugin-import": "^2.16.0",
+    "eslint": "^8.9.0",
+    "eslint-config-actano-base": "^8.2.0",
+    "eslint-plugin-import": "^2.26.0",
     "mocha": "^6.0.2"
   },
   "dependencies": {
-    "@rplan/logger": "^1.3.5"
+    "@rplan/logger": "^1.3.7"
   },
   "peerDependencies": {
-    "@rplan/config": "^2.0.1"
+    "@rplan/config": "^2.2.0"
   }
 }
