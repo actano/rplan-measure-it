@@ -4,6 +4,10 @@ pipeline {
   agent {
     label "jenkins-nodejs-16"
   }
+  environment {
+    // Disabke babel cache
+    BABEL_DISABLE_CACHE=1
+  }
   stages {
     stage('Install') {
       steps {
