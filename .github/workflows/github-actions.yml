@@ -51,21 +51,3 @@ jobs:
       - name: NPM Publish
         if: ${{ github.event_name == 'push' && startsWith(github.ref, 'refs/tags/') }}
         run: CI=true npm publish
-  slack-notification:
-    needs: [build]
-    if: always()
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-      - name: Run Slack Notification
-        uses: actano/slack-action@master
-        env:
-          SLACK_BOT_TOKEN: ${{ secrets.SLACK_TOKEN }}
-          SLACK_CHANNEL: "saturn-ci"
-          GITHUB_TOKEN: ${{ secrets.ACTANO_GITHUB_TOKEN }}
-          GITHUB_RUN_ID: ${{ github.run_id }}
-          REPO_OWNER: ${{ github.repository_owner }}
-          REPO_NAME: ${{ github.event.repository.name }}
-          RUN_ID: ${{ github.run_id }}
-          SEND_SUCCESS_MESSAGE: "true"
